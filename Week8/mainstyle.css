@@ -1,0 +1,15 @@
+span{
+    background-color:bisque;
+}
+.blacktext{
+    color: black;
+}
+#linkmodify{
+    text-decoration: none;
+    color:green;
+}
+body{
+    background-color:blueviolet;
+font-family:'Times New Roman', Times, serif;
+text-align: center;
+}

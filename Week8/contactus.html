@@ -1,0 +1,32 @@
+<html>
+    <title>What is your information?</title>
+    <head>
+        <script>
+            function getData()
+            {
+                var username = document.getElementById("name").value;
+                var phoneNumber = document.getElementById("phoneNumber").value;
+                window.alert("your information: " + username + phoneNumber);
+            }
+        </script>
+    <!-- external stylesheet using bootstrap via CDN-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body style="background-color: rgb(55, 37, 213);">
+    <h3>What is your contact information?</h3>
+    <br>
+    <form style="background-color: rgb(195, 25, 172)">
+        <input type="text" value = " " id="name">name<br>
+        <input type="text" value=" " id="phone">phone<br>
+      
+        <button id="btnSubmit" class="btn btn-primary" onClick="getData();">Submit My Info</button>
+    </form>
+    <br>
+
+    <a href="index.html">First Page</a>
+        <a href="secondpage.html">My favorite rap artist</a>
+        <a href="thirdpage.html">My favorite R&B artist</a>
+        <a href="fourthpage.html">My favorite reggae artist</a>
+        <a href="favorites.html">Your favorites</a>
+</body>
+</html>
