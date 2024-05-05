@@ -11,11 +11,7 @@ function setup() {
 }
 
 function draw() {
-    console.log("Drawing...");
-    
-    // Clear the canvas at the beginning of each draw cycle
     background(220);
-    // Draw the background based on the current scene
     if (scene === 0) {
         startingScene();
     } else if (scene === 6) {
@@ -56,51 +52,48 @@ function keyPressed() {
     console.log("Key pressed:", key);
     console.log("Current scene:", scene);
 
-    if (scene === 0) { // Exploration scene
+    if (scene === 0) { 
         if (key === 'y' || key === 'Y') {
-            scene = 1; // Transition to the exploration scene
+            scene = 1; 
         } else if (key === 'n' || key === 'N') {
-            scene = 6; // Transition directly to the get going prompt scene
+            scene = 6; 
         }
-    } else if (scene === 6) { // Get going prompt scene
+    } else if (scene === 6) { 
         if (key === 'y' || key === 'Y') {
-            scene = 1; // Transition back to exploration scene when 'y' is pressed
+            scene = 1; 
         }
-    } else if (scene === 2) { // House scene
+    } else if (scene === 2) { 
         if (key === 'b' || key === 'B') {
-            scene = 3; // Transition to the hear noise scene
+            scene = 3; 
         } else if (key === 'k' || key === 'K') {
-            scene = 7; // Transition to the nobody came scene
+            scene = 7; 
         } else if (key === 'c' || key === 'C') {
             userChoice = key.toLowerCase();
             characterX = 50;
             animationProgress = 0;
-            continueAnimation(); // Transition to the animation scene
+            continueAnimation(); 
         }
-    } else if (scene === 7) { // Nobody came scene
+    } else if (scene === 7) { 
         if (key === 'y' || key === 'Y') {
-            scene = 4; // Transition to the next scene if the user chooses 'y'
+            scene = 4; 
         } else if (key === 'n' || key === 'N') {
-            scene = 2; // Transition back to the house scene if the user chooses 'n'
+            scene = 2; 
         }
-    } else if (scene === 3) { // Scene after animation
+    } else if (scene === 3) { 
         if (key === 'y' || key === 'Y') {
             if (userChoice === 'k') {
-                // If 'y' is pressed after knocking, continue the animation
                 continueAnimation();
             } else {
-                // If 'y' is pressed without knocking, trigger nobodyCame function
                 userChoice = 'y';
                 nobodyCame();
             }
         } else if (key === 'n' || key === 'N') {
-            // If 'n' is pressed, trigger nobodyCame function
             userChoice = 'n';
             nobodyCame();
         }
     } else if (scene === 4) {
       runningLowOnWaterScene();
-        }else if (scene === 3.1) { // Scene after choosing to turn left
+        }else if (scene === 3.1) { 
         if (key === 'l' || key === 'L') {
             exhaustedLossScene();
         }else if (scene === 8) {
@@ -123,13 +116,10 @@ function keyPressed() {
 
 function continueAnimation() {
     if (scene === 3) {
-        // Increment animation progress
         animationProgress += 5;
         characterX += 5;
-        
-        // If animation progress exceeds 100, transition to the next scene
         if (animationProgress >= 100) {
-            scene = 4; // Transition to the next scene
+            scene = 4;
             userChoice = 'c';
         }
     }
@@ -155,7 +145,6 @@ function exploreScene() {
 }
 
 function houseScene() {
-    // Display the options for the house scene
     fill(0);
     textSize(20);
     textAlign(CENTER);
@@ -166,7 +155,6 @@ function transitionScene() {
     if (userChoice === 'b') {
         hearNoise();
     } else if (userChoice === 'k') {
-        // If the player chose to knock, transition to the scene where it asks if they want to break in
         nobodyCame();
     } else if (userChoice === 'c') {
         animateMoveRight();
@@ -174,17 +162,12 @@ function transitionScene() {
 }
 
 function hearNoise() {
-    // Clear the canvas
     background(220);
-
-    // Change background color to green
     fill(0);
     textSize(20);
     textAlign(CENTER);
     text("You hear a noise. Will you hide (h) or run (r)?", width / 2, height / 2);
-
-    // Transition to the 'hear noise' scene
-    scene = 3; // Adjust the scene number accordingly
+    scene = 3; 
   if(key === 'h' || key === 'H'){
     scene = 9;
   }else if (key === 'r' || key === 'R'){
@@ -193,56 +176,36 @@ function hearNoise() {
 }
 
 function nobodyCame() {
-    console.log("Inside nobodyCame() function");
-    console.log("userChoice:", userChoice);
-
-    // Display text to indicate nobody came
     background(220);
     fill(0);
     textSize(20);
     textAlign(CENTER);
     text("Nobody came to the door. \nIt is probably time to continue. \nWhat do you think? Yes (y) or No (n)", width / 2, height / 2);
-    // Set the scene based on user's choice
     if (userChoice === 'y') {
-        scene = 4; // Transition to the next scene if the user chooses 'y'
+        scene = 4;
     } else if (userChoice === 'n') {
-        scene = 2; // Transition back to the house scene if the user chooses 'n'
+        scene = 2;
     } else if (userChoice === 'k') {
         if (scene === 3) {
-            console.log("Calling continueAnimation()...");
-            continueAnimation(); // Continue animation if the previous scene was the house and the user chose 'k'
+            continueAnimation();
         } else {
-            scene = 7; // Continue in the same scene if the user knocked ('k')
+            scene = 7;
         }
     }
-
-    console.log("After nobodyCame() call, scene:", scene);
-    console.log("After nobodyCame() call, userChoice:", userChoice);
-
-    // Reset userChoice after processing
     userChoice = '';
 }
 
 function animateMoveRight() {
-    console.log("Animating move right");
     if (animationProgress < width - 50) {
-        // Clear the canvas
         background(50, 200, 50);
-
-        // Update character position
         characterX = 50 + animationProgress;
         animationProgress += 5;
-
-        // Draw the character
         fill(255);
         ellipse(characterX, height / 2, 30, 30);
-
-        console.log("Character position:", characterX); // Log character position
-        console.log("Animation progress:", animationProgress); // Log animation progress
     } else {
         userChoice = '';
         animationProgress = 0;
-        scene = 4; // Transition to the next scene
+        scene = 4; 
     }
 }
 function runningLowOnWaterScene() {
@@ -276,7 +239,6 @@ function exhaustedLossScene() {
 }
 
 function getGoingPrompt() {
-    // Display the get going prompt
     fill(0);
     textSize(20);
     textAlign(CENTER);
